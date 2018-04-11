@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import App from './App';
-import About from './About/About';
-import NoMatch from './NoMatch/NoMatch';
+import App from './pages/App/App';
+import About from './pages/About/About';
+import NoMatch from './pages/NoMatch/NoMatch';
 
 import registerServiceWorker from './registerServiceWorker';
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import logo from './logo.svg';
+import logo from '../../images/logo.svg';
 import './App.css';
 import { Button, Collapse, Tag, Notification } from 'element-react';
 import 'element-theme-default';
-import MyLi from './MyLi/MyLi';
+import MyLi from '../MyLi/MyLi';
 
 let startTime;
 
