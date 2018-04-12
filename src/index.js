@@ -35,7 +35,7 @@ ReactDOM.render(
             <Switch>
                 <Route exact path="/" component={App} />
                 <Route path="/about" component={About} />
-                <Route path="/noMatch" component={NoMatch} />
+                <Route path="*" component={NoMatch} />
             </Switch>
         </Index>
     </BrowserRouter>,

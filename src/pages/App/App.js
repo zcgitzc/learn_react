@@ -1,11 +1,20 @@
+//React
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+//logo
 import logo from '../../images/logo.svg';
+//css
 import './App.css';
+//element-ui
 import { Button, Collapse, Tag, Notification } from 'element-react';
 import 'element-theme-default';
+//app-component
 import MyLi from '../MyLi/MyLi';
-
+//immutable
+import { Map, OrderedMap } from 'immutable';
+//db
+import DB from "../../app/app_db";
+console.log(DB);
 let startTime;
 
 class App extends Component {
@@ -13,7 +22,8 @@ class App extends Component {
     super(props)
     this.state = {
       liList: ['A', 'B', 'C', 'D', 'E', 'F'],
-      count: 1
+      count: 1,
+      data: Map({ index: 0 })
     };
   }
 
@@ -27,21 +37,18 @@ class App extends Component {
     console.log("componentDidMount");
 
 
-    fetch("https://api.example.com/items")
-      .then(res => res.json())
-      .then(
-      (result) => {
-        console.log(result);
-      },
+    DB.app.testNattyDb({
+      //params
+    }).then((res) => {
+      console.log(res);
+    }).catch((error) => {
+      console.error(error);
+      let liList = ['A-ERROR', 'B-ERROR', 'C-ERROR', 'D-ERROR', 'E-ERROR', 'F-ERROR']
+      me.setState({
+        liList
+      });
+    });
 
-      (error) => {
-        let liList = ['A-ERROR', 'B-ERROR', 'C-ERROR', 'D-ERROR', 'E-ERROR', 'F-ERROR']
-        me.setState({
-          liList
-        });
-
-      }
-      )
   }
 
   componentWillReceiveProps(nextProps) {
@@ -119,6 +126,13 @@ class App extends Component {
     me.textInput.focus();
   }
 
+  learnImmutable() {
+    const me = this;
+    me.setState({ data: me.state.data.update("index", index => index + 1) },
+      () => console.log(me.state.data.get("index")));
+    console.log(me.state.data.get("index"));
+  }
+
   render() {
     console.log("render");
     const me = this;
@@ -176,6 +190,9 @@ class App extends Component {
                   this.textInput = input;
                 }} />
               <Button type="primary" onClick={me.focus.bind(me)}>点击获取焦点</Button>
+            </Collapse.Item>
+            <Collapse.Item title="Immutable使用" name="7">
+              <Button type="primary" onClick={me.learnImmutable.bind(me)}>点击测试Immutable{me.state.data.get("index")}</Button>
             </Collapse.Item>
           </Collapse>
         </div>
